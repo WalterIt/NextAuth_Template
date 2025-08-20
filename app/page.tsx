@@ -1,21 +1,15 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <h1 className="text-2xl font-bold text-blue-900 tracking-tight sm:text-2xl">
-          VALTO SILVA - 2025
-        </h1>
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        </main>
+    <div className="font-sans flex flex-col items-center justify-center min-h-screen p-8 gap-16 sm:p-20"> 
+        <h1 className="text-2xl font-bold text-blue-900 sm:text-2xl">
+          VALTO SILVA - v1 2025
+        </h1>  
+
+         <Button variant="outline" size="lg">
+              Sign In
+        </Button>     
         
     </div>
   );
