@@ -47,7 +47,13 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+html,
+body {
+   height: 100%;
+}
+
 :root {
+  height: 100%;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
