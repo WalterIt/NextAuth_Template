@@ -4,6 +4,7 @@ import React from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Header } from './header'
 import { Social } from './social'
+import { BackButton } from './back-button'
 
 interface CardWrapperProps {
     children :  React.ReactNode,
@@ -18,18 +19,19 @@ export const CardWrapper = ({children, headerLabel, backButtonLabel, backButtonH
   
   
     return (
-        <Card className='w-[500px]'>
-            <CardHeader>
-                <Header label={headerLabel} />
-            </CardHeader>
-            <CardContent>
-            {children}
-            </CardContent>
-            {showSocial && 
-        <CardFooter>
+      <Card className="w-[500px]">
+        <CardHeader>
+          <Header label={headerLabel} />
+        </CardHeader>
+        <CardContent>{children}</CardContent>
+        {showSocial && (
+          <CardFooter>
             <Social />
-        </CardFooter>}
-        </Card>
-
-  )
+          </CardFooter>
+        )}
+        <CardFooter>
+            <BackButton labelFooter={backButtonLabel} labelHref={backButtonHref} />
+        </CardFooter>
+      </Card>
+    );
 }
