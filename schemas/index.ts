@@ -58,12 +58,12 @@ export const LoginSchema = z.object({
 
 export const RegisterSchema = z.object({
     email:z.string().email({
-        message : "Email is Required"
+        message : "Email is Required!"
     }),
     password:z.string().min(6, {
-        message : "Minimum 6 character"
+        message : "Minimum 6 characters Required!"
     }),
     name: z.string().min(2, {
-        message : "Name is required"
+        message : "Name is required!"
     })
 })
