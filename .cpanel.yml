@@ -1,4 +1,4 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/commtjdu/nextauth.com/
+    - export DEPLOYPATH=/home/commtjdu/authnext.com/
     - /bin/cp * $DEPLOYPATH
