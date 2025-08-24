@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0 --turbopack",
-    "build": "next build --turbopack",
-    "build:mem": "node --max-old-space-size=4096 node_modules/.bin/next build",
-    "postinstall": "npm run build:mem",
+    "build": "next build --no-lint --turbopack",
     "start": "next start",
     "lint": "eslint"
   },
