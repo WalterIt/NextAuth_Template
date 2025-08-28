@@ -1,5 +1,7 @@
 import { PrismaClient } from "../lib/generated/prisma";
 
+// DB Connection Update
+
 declare global {
     // allow global `var` declarations
     // eslint-disable-next-line no-var
