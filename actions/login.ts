@@ -1,10 +1,10 @@
 "use server"
 import * as z from "zod"
 // import { db } from "@/lib/db";
-// import { AuthError } from "next-auth";
+import { AuthError } from "next-auth";
 import { LoginSchema } from "@/schemas";
-// import { signIn } from "@/auth";
-// import { DEFAULT_REDIRECT_ROUTES } from "@/route";
+import { signIn } from "@/auth";
+import { DEFAULT_REDIRECT_ROUTES } from "@/route";
 // import { getUserByEmail } from "@/data/data";
 // import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens";
 // import { sendVerificationEmail, sendTwoFactorToken} from "@/lib/mail";
@@ -23,9 +23,10 @@ export const login = async (values : z.infer<typeof LoginSchema>) => {
     if (!validateFields.success) {
         return { error : "Invalid Fields!" }
     }
+    
+    const { email, password} = validateFields.data
 
-    return { success: 'Email Sent!' }
-}
+
 //     const { email, password, code} = validateFields.data
 //     const existingUser = await getUserByEmail(email)
 
@@ -78,22 +79,23 @@ export const login = async (values : z.infer<typeof LoginSchema>) => {
 //     }
 
 
-//     try {
-//         await signIn("credentials", {
-//             email,
-//             password,
-//             redirectTo : callbackUrl || DEFAULT_REDIRECT_ROUTES
-//         }) 
-//     } catch (error) {
-//         if (error instanceof AuthError) {
-//             switch(error.type) {
-//                 case "CredentialsSignin":
-//                     return { error : "Invalid Email or Password!" }
-//                 default:
-//                     return { error : "Something went wrong!" }
-//             }
-//         }
-//         throw error
-//     }
+    try {
+        await signIn("credentials", {
+            email,
+            password,
+            redirectTo : DEFAULT_REDIRECT_ROUTES
+            // redirectTo : callbackUrl || DEFAULT_REDIRECT_ROUTES
+        }) 
+    } catch (error) {
+        if (error instanceof AuthError) {
+            switch(error.type) {
+                case "CredentialsSignin":
+                    return { error : "Invalid Email or Password!" }
+                default:
+                    return { error : "Something went wrong!" }
+            }
+        }
+        throw error
+    }
     
-// }
+}
