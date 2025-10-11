@@ -49,7 +49,7 @@ export const LoginForm = () => {
 
                      if (data?.success) {
                          form.reset()
-                         setSuccess(data.success)
+                         setSuccess(data?.success)
                      }
 
                     //  if (data?.twoFactor) {

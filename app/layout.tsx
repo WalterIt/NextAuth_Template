@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
+import { auth } from '@/auth'
+import { Toaster } from "@/components/ui/sonner"
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,18 +21,23 @@ export const metadata: Metadata = {
   description: "Authentication App",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
-    <html lang="en">
-      <body
-        className={`bg-gradient-to-b from-sky-600 to-sky-300 ${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <SessionProvider session={session}>
+      <html lang="en">
+        <body
+          className={`bg-gradient-to-b from-sky-600 to-sky-300 ${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <Toaster  />
+          {children}
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

@@ -3,17 +3,17 @@
 import { Button } from "@/components/ui/button"
 import { FcGoogle } from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
-// import { signIn } from "next-auth/react"
-// import { DEFAULT_REDIRECT_ROUTES } from "@/route"
+import { signIn } from "next-auth/react"
+import { DEFAULT_REDIRECT_ROUTES } from "@/route"
 import { useSearchParams } from "next/navigation"
 
 export const Social = () => {
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get("callbackUrl")
     const onClick = ( provider : "google" | "github" ) => {
-        // signIn( provider,{
-        //     callbackUrl: callbackUrl || DEFAULT_REDIRECT_ROUTES
-        // })
+        signIn( provider,{
+            callbackUrl: callbackUrl || DEFAULT_REDIRECT_ROUTES
+        })
     }
 
     return (

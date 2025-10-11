@@ -5,7 +5,7 @@ import { AuthError } from "next-auth";
 import { LoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
 import { DEFAULT_REDIRECT_ROUTES } from "@/route";
-// import { getUserByEmail } from "@/data/data";
+import { getUserByEmail } from "@/data/user";
 // import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens";
 // import { sendVerificationEmail, sendTwoFactorToken} from "@/lib/mail";
 // import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
@@ -28,11 +28,11 @@ export const login = async (values : z.infer<typeof LoginSchema>) => {
 
 
 //     const { email, password, code} = validateFields.data
-//     const existingUser = await getUserByEmail(email)
+    const existingUser = await getUserByEmail(email)
 
-//     if (!existingUser || !existingUser.email || !existingUser.password) { 
-//         return { error : "Email Is Not Exist" }
-//     }
+    if (!existingUser || !existingUser.email || !existingUser.password) { 
+        return { error : "Email Is Not Exist" }
+    }
 
 //     if (!existingUser.emailVerified) {
 //         const verificationToken = await generateVerificationToken(email)
