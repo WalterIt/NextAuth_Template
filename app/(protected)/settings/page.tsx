@@ -1,11 +1,9 @@
 
 import UserSettings from '@/components/user-settings'
-import { auth } from '@/auth'
+import { currentUser } from '@/lib/custom-auth'
 
 const SettingPage = async () => {
-  const session = await auth()
-
-  const user = session?.user
+  const user = await currentUser()
 
   const content = (<UserSettings user={user!} />)
 
