@@ -25,11 +25,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { auth } = await import("@/auth");
-  const session = await auth();
+
 
   return (
-    <SessionProvider session={session}>
+    <SessionProvider>
       <html lang="en">
         <body
           className={`bg-gradient-to-b from-sky-600 to-sky-300 ${geistSans.variable} ${geistMono.variable} antialiased`}
