@@ -51,6 +51,7 @@ export const {
       return true
     },
     async session({token, session}) {
+      try {
       if(token.sub && session.user) {
         session.user.id = token.sub
       }
@@ -74,6 +75,10 @@ export const {
       }
 
       return session
+    } catch (error) {
+      console.error("Session callback error:", error)
+      return session
+    }
     },
     async jwt({token}) {
       if(!token.sub) return token;
