@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
-import { auth } from '@/auth'
 import { Toaster } from "@/components/ui/sonner"
 
 
@@ -26,6 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { auth } = await import("@/auth");
   const session = await auth();
 
   return (
