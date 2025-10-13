@@ -6,7 +6,7 @@ import { LoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
 import { DEFAULT_REDIRECT_ROUTES } from "@/route";
 import { getUserByEmail } from "@/data/user";
-// import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens";
+import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens";
 // import { sendVerificationEmail, sendTwoFactorToken} from "@/lib/mail";
 // import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 // import { getTokenConfirmationByUserId } from "@/data/two-factor-confirmation";
@@ -23,20 +23,21 @@ export const login = async (values : z.infer<typeof LoginSchema>, callbackUrl?: 
     const existingUser = await getUserByEmail(email)
 
     if (!existingUser || !existingUser.email || !existingUser.password) { 
-        return { error : "Email Is Not Exist" }
+        return { error : "Email Is Not Exist!" }
+    }
+     
+    if (!existingUser.emailVerified) {
+        const verificationToken = await generateVerificationToken(existingUser.email)
+        // await sendVerificationEmail(verificationToken.email, verificationToken.token)
+        return { success : "Confirmation Email Sent!" }
     }
 
-    if (existingUser && existingUser.password) { 
-        return { success : "Confirmation Email Sent" }
-    }
-
-
-
-    // if (!existingUser.emailVerified) {
-    //     const verificationToken = await generateVerificationToken(email)
-    //     await sendVerificationEmail(verificationToken.email, verificationToken.token)
+    // if (existingUser && existingUser.password) { 
     //     return { success : "Confirmation Email Sent" }
     // }
+
+
+
 
     // if(existingUser.isTwoFactorEnabled && existingUser.email) {
     //     if(code) {

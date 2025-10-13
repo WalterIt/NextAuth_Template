@@ -29,11 +29,14 @@ export const {
     async signIn({user, account}) {
 
       // console.log({user, account})
-
+      
+      // Allow AOuth logins without email verification
       if (account?.provider !== "credentials") return true;
 
       const existingUser = await getUserById(user.id);
 
+
+      // Prevent login if email is not verified
       if (!existingUser?.emailVerified) return false 
 
       // if (existingUser.isTwoFactorEnabled) {

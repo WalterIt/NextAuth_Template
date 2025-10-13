@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
-import { useEffect, useState, useTransition } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import {  useState, useTransition } from "react";
+import {  useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 
@@ -44,7 +44,7 @@ export const LoginForm = () => {
                  .then((data) => {
                      if (data?.error) {
                          form.reset()
-                         setError(data.error)
+                         setError(data?.error)
                      }
 
                      if (data?.success) {
