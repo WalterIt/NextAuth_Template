@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { LoginSchema, ResetSchema } from "@/schemas";
+import { ResetSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form,FormControl,FormField,FormLabel,FormItem,FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -10,10 +10,7 @@ import { CardWrapper } from "./card-wrapper"
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { login } from "@/actions/login";
 import { useState, useTransition } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { reset } from "@/actions/reset";
 
 
@@ -35,8 +32,8 @@ export const ResetForm = () => {
         startTransition(() => {
            reset(values)
             .then((data) => {
-               setError(data.error)
-               setSuccess(data.success)
+               setError(data?.error)
+               setSuccess(data?.success)
            })
         }) 
     }

@@ -7,7 +7,7 @@ import { signIn } from "@/auth";
 import { DEFAULT_REDIRECT_ROUTES } from "@/route";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens";
-// import { sendVerificationEmail, sendTwoFactorToken} from "@/lib/mail";
+import { sendVerificationEmail} from "@/lib/mail";
 // import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 // import { getTokenConfirmationByUserId } from "@/data/two-factor-confirmation";
 
@@ -28,7 +28,7 @@ export const login = async (values : z.infer<typeof LoginSchema>, callbackUrl?: 
      
     if (!existingUser.emailVerified) {
         const verificationToken = await generateVerificationToken(existingUser.email)
-        // await sendVerificationEmail(verificationToken.email, verificationToken.token)
+        await sendVerificationEmail(verificationToken.email, verificationToken.token)
         return { success : "Confirmation Email Sent!" }
     }
 

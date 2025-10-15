@@ -28,7 +28,7 @@ export const {
   callbacks : {
     async signIn({user, account}) {
 
-      // console.log({user, account})
+      // console.log({'USER & ACCOUNT': user, account})
       
       // Allow AOuth logins without email verification
       if (account?.provider !== "credentials") return true;

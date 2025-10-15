@@ -3,8 +3,8 @@
 import * as z from "zod"
 import { ResetSchema } from "@/schemas";
 import { getUserByEmail } from "@/data/user";
-// import { generateResetPasswordToken } from "@/lib/tokens";
-// import { sendResetPasswordEmail } from "@/lib/mail";
+import { generateResetPasswordToken } from "@/lib/tokens";
+import { sendResetPasswordEmail } from "@/lib/mail";
 
 
 export const reset = async (values : z.infer<typeof ResetSchema>) => {
@@ -14,21 +14,18 @@ export const reset = async (values : z.infer<typeof ResetSchema>) => {
     
     
     if (!validateFields.success) {
-        return { error : "Invalid Fields!" }
+        return { error : "Invalid Email!" }
     }
 
     const { email } = validateFields.data
     const existingUser = await getUserByEmail(email)
 
     if(!existingUser) {
-        return { error : "Email Is Not Exist" } 
+        return { error : "Email  Not Found!" } 
     }
 
+    const resetPasswordToken = await generateResetPasswordToken(email)
+    await sendResetPasswordEmail(resetPasswordToken.email, resetPasswordToken.token)
 
-
-
-    // const resetPasswordToken = await generateResetPasswordToken(email)
-    // await sendResetPasswordEmail(resetPasswordToken.email, resetPasswordToken.token)
-
-    return {success : "Reset Email Sent"}
+    return {success : "Reset Email Sent!"}
 }
