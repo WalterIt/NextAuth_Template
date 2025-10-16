@@ -3,7 +3,7 @@ import authConfig from "./auth.config"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { db } from "./lib/db"
 import { getUserByEmail, getUserById,  } from "./data/user"
-// import { getTokenConfirmationByUserId } from "./data/two-factor-confirmation"
+import { getTokenConfirmationByUserId } from "./data/two-factor-confirmation"
 import { UserRole } from "@prisma/client"
 // import { getAccountByUserId } from "./data/account"
 
@@ -39,17 +39,17 @@ export const {
       // Prevent login if email is not verified
       if (!existingUser?.emailVerified) return false 
 
-      // if (existingUser.isTwoFactorEnabled) {
-      //   const tokenConfirmation = await getTokenConfirmationByUserId(existingUser.id)
+      if (existingUser.isTwoFactorEnabled) {
+        const tokenConfirmation = await getTokenConfirmationByUserId(existingUser.id)
 
-      //   if (!tokenConfirmation) return false
+        if (!tokenConfirmation) return false
         
-      //   await db.twoFactorConfirmation.delete({
-      //     where : {id : tokenConfirmation.id}
-      //   })
+        await db.twoFactorConfirmation.delete({
+          where : {id : tokenConfirmation.id}
+        })
 
-      //   return true
-      // }
+        return true
+      }
       
       return true
     },

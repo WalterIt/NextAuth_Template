@@ -5,14 +5,14 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const domain = process.env.AUTH_URL
 
 
-// export const sendTwoFactorToken = async (email: string, token: string) => {
-//     await resend.emails.send({
-//         from : "onboarding@resend.dev",
-//         to : email,
-//         subject : "Your 2FA token",
-//         html : `<p>Your 2FA token is ${token}</p>`
-//     })
-// }
+export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
+    await resend.emails.send({
+        from : "onboarding@resend.dev",
+        to : email,
+        subject : "Your 2FA token",
+        html : `<p>Your 2FA token is ${token}</p>`
+    })
+}
 
 
 export const sendResetPasswordEmail = async (email: string, token: string) => {

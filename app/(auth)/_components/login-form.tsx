@@ -31,6 +31,7 @@ export const LoginForm = () => {
         defaultValues : {
             email: "", 
             password: "",
+            code: "",
         }
     })
 
@@ -52,9 +53,9 @@ export const LoginForm = () => {
                          setSuccess(data?.success)
                      }
 
-                    //  if (data?.twoFactor) {
-                    //      setTwoFactor(true)
-                    //  }
+                     if (data?.twoFactor) {
+                         setTwoFactor(true)
+                     }
                  })
                  .catch(() => setError("Something Went Wrong!"))
          }) 
@@ -69,7 +70,6 @@ export const LoginForm = () => {
       >
         <Form {...form}>
           <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
-            {/* <form className="space-y-6" > */}
             <div className="space-y-4">
               {isTwoFactor && (
                 <FormField
