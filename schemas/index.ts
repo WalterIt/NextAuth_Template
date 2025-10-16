@@ -36,7 +36,7 @@ export const SettingsSchema = z.object({
 
 export const NewPasswordSchema = z.object({
     password:z.string().min(6, {
-        message : "Minimum 6 character"
+        message : "Minimum 6 character Required!"
     }),
 })
 
