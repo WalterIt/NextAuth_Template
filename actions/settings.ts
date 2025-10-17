@@ -6,20 +6,18 @@ import { db } from "@/lib/db"
 import { currentUser } from "@/lib/custom-auth"
 import { SettingsSchema } from "@/schemas"
 import { getUserByEmail, getUserById } from "@/data/user"
-// import { generateVerificationToken } from "@/lib/tokens"
-// import { sendVerificationEmail } from "@/lib/mail"
-import { useSession } from "next-auth/react"
+import { generateVerificationToken } from "@/lib/tokens"
+import { sendVerificationEmail } from "@/lib/mail"
 import { revalidatePath } from "next/cache"
 
 export const settings = async (values : z.infer<typeof SettingsSchema>) => {
     const user = await currentUser()
 
-    if (!user) return {error : "User Not Found!!"}
+    if (!user) return {error : "Unauthorized!!"}
 
     const dbUser = await getUserById(user.id)
-
     
-    if(!dbUser) return {error : "User Not Found!!"}
+    if(!dbUser) return {error : "Unauthorized!!"}
 
     if(user.isOauth) {
         values.email = undefined
@@ -28,8 +26,6 @@ export const settings = async (values : z.infer<typeof SettingsSchema>) => {
         values.isTwoFactorEnabled = undefined
     }
 
-    
-
     // if(values.password !== values.newPassword) return {error : "Passwords Don't Match!"}
 
     if (values.email && values.email !== user.email) {
@@ -37,10 +33,10 @@ export const settings = async (values : z.infer<typeof SettingsSchema>) => {
         if(existingUser && existingUser.id !== user.id) {
             return {error : "Email Already Exists!!"}
         }
-        // const verificationToken = await generateVerificationToken(values.email)
-        // await sendVerificationEmail(verificationToken.email, verificationToken.token)
+        const verificationToken = await generateVerificationToken(values.email)
+        await sendVerificationEmail(verificationToken.email, verificationToken.token)
 
-        return {success : "Confirmation Email Sent!"}
+        return {success : "Verification Email Sent!"}
     }
 
 

@@ -9,7 +9,7 @@ const ProtectedLayout = async({ children }: ProtectedLayoutProps) => {
   const user = await currentUser()
 
   return ( 
-    <div className="h-full pt-32 w-full flex flex-col gap-y-10 items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
+    <div className="h-full pt-32 pb-4 w-full flex flex-col gap-y-6 items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
        <Navbar user={user} />
       {children}
     </div>

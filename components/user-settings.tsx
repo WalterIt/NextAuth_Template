@@ -16,11 +16,9 @@ import { FormError } from '@/components/form-error'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { UserRole } from '@prisma/client'
 import { Switch } from '@/components/ui/switch'
-import { useRouter } from 'next/navigation'
 import { ExtendedUser } from '@/next-auth'
 
 const UserSettings = ({user}: {user : ExtendedUser}) => {
-  const router = useRouter()
   const [success, setSuccess] = useState<string | undefined>()
   const [error, setError] = useState<string | undefined>()
   const { update } = useSession()
@@ -32,7 +30,7 @@ const UserSettings = ({user}: {user : ExtendedUser}) => {
     defaultValues: {
       name: user?.name || undefined,
       email: user?.email || undefined,
-      isTwoFactorEnabled: user?.isTwoFactorEnabled,
+      isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
       role: user?.role,
       password: undefined,
       newPassword: undefined
@@ -77,6 +75,7 @@ const UserSettings = ({user}: {user : ExtendedUser}) => {
                         placeholder='Your New Name'
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -96,6 +95,7 @@ const UserSettings = ({user}: {user : ExtendedUser}) => {
                         type='email'
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -128,7 +128,7 @@ const UserSettings = ({user}: {user : ExtendedUser}) => {
                       <Input
                         {...field}
                         disabled={isPending}
-                        placeholder='New Password...'
+                        placeholder='******'
                         type='password'
                       />
                     </FormControl>
@@ -145,7 +145,7 @@ const UserSettings = ({user}: {user : ExtendedUser}) => {
                 control={form.control}
                 name="role"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem >
                     <FormLabel>Role</FormLabel>
                     <Select disabled={isPending} onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
@@ -162,6 +162,7 @@ const UserSettings = ({user}: {user : ExtendedUser}) => {
                         </SelectItem>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -172,10 +173,10 @@ const UserSettings = ({user}: {user : ExtendedUser}) => {
               name="isTwoFactorEnabled"
               render={({ field }) => ( 
                 <FormItem className='flex justify-between items-center rounded-lg border p-3 shadow-sm'>
-                  <div>
+                  <div className='space-y-0.5'>
                     <FormLabel>Two Factor Authentication</FormLabel>
                     <FormDescription>
-                      Enable Two Factor Authentication
+                      Enable Two Factor Authentication for your Account
                     </FormDescription>
                   </div>
                   <FormControl>

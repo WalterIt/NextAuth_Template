@@ -41,7 +41,7 @@ export const LoginForm = () => {
          console.log("Login Form Values: ", values)
          
          startTransition(() => {
-             login(values)
+             login(values, callbackUrl)
                  .then((data) => {
                      if (data?.error) {
                        if (isTwoFactor) {
