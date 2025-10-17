@@ -98,7 +98,7 @@ export const {
       token.email = existingUser.email
       token.image = existingUser.image
       token.role = existingUser.role
-      // token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled
+      token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled
 
       return token
     }

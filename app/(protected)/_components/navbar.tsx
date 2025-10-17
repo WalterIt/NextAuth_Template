@@ -12,6 +12,9 @@ const Navbar = ({user}: {user : any}) => {
   return (
     <div className='w-[600px] flex justify-between items-center bg-white p-3 rounded-xl'>
         <div className='flex gap-x-2'>
+            <Button variant={pathname === "/settings" ? "default" : "outline"} asChild>
+                <Link href="/settings">Settings</Link>
+            </Button>
             <Button variant={pathname === "/server" ? "default" : "outline"} asChild>
                 <Link href="/server">Server</Link>
             </Button>
@@ -24,9 +27,6 @@ const Navbar = ({user}: {user : any}) => {
                 <Link href="/admin">Admin</Link> 
             </Button>
 
-            <Button variant={pathname === "/settings" ? "default" : "outline"} asChild>
-                <Link href="/settings">Settings</Link>
-            </Button>
         </div>
         <UserButton user={user} />
     </div>

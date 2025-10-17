@@ -44,8 +44,17 @@ export const LoginForm = () => {
              login(values)
                  .then((data) => {
                      if (data?.error) {
-                         form.reset()
-                         setError(data?.error)
+                       if (isTwoFactor) {
+                         // Preserva o código para permitir nova tentativa
+                         form.setValue("code", "");
+                       } else {
+                         form.reset({
+                           email: "",
+                           password: "",
+                           code: "",
+                         });
+                       }
+                       setError(data.error);
                      }
 
                      if (data?.success) {
