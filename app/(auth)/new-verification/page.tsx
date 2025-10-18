@@ -1,10 +1,12 @@
 import { NewVerificationForm } from '../_components/new-verification-form'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const NewVerification = () => {
   return (
-    <NewVerificationForm />
-  )
+    <Suspense>
+      <NewVerificationForm />
+    </Suspense>
+  );
 }
 
 export default NewVerification

@@ -1,10 +1,12 @@
 import { ErrorCard } from '@/app/(auth)/_components/error-card'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const ErrorPage = () => {
   return (
-    <ErrorCard />
-  )
+    <Suspense>
+      <ErrorCard />
+    </Suspense>
+  );
 }
 
 export default ErrorPage
